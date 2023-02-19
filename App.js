@@ -1,11 +1,14 @@
 import { StyleSheet,View} from 'react-native';
-import React, { Component } from 'react'
-import Login from "./Login";
+import React, { Component } from 'react';
+// import Contact from "./components/Contact";
+import Contacts from './Contacts';
+// import Login from "./Login";
+
 class App extends Component {
   render() {
     return (
           <View style={styles.container}>
-             <Login/>
+             <Contacts/>
           </View>
     )
   }
