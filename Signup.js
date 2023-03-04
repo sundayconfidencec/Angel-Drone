@@ -13,6 +13,7 @@ export default class
         }
     }
   render() {
+    const { navigation } = this.props
     return (
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View>
@@ -76,7 +77,10 @@ export default class
 
       <View style={styles.noAccountCountainer}>
         <Text style={styles.noAccountText}>Already have an Account?</Text>
+        <TouchableOpacity onPress={()=>{navigation.navigate("Login")}}>
+
         <Text style={styles.signupText}>Log in</Text>
+        </TouchableOpacity>
       </View>
       </ScrollView>
     )
@@ -85,15 +89,8 @@ export default class
 
 const styles = StyleSheet.create({
 container:{
-    marginHorizontal:20,
     paddingHorizontal:30,
     backgroundColor: "white",
-    borderRadius: 10,
-    elevation: 5,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
 },
 loginHead:{
     fontSize: 50,
