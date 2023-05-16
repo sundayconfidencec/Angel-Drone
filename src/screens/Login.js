@@ -1,46 +1,60 @@
-import React, { Component } from 'react'
-import { TextInput, TouchableOpacity, View, StyleSheet, Text, ScrollView} from 'react-native'
+import React, { Component } from 'react';
+import { TextInput, TouchableOpacity, View, StyleSheet, Text, ScrollView} from 'react-native';
+import { connect } from 'react-redux';
+import {LoginAccount, } from "../redux/actions/AuthAction";
+import { dispatchUser } from "../redux/actions/AuthAction";
 
-export default class 
+ class Login
  extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            username: "",
-            password: ""
-        }
+  constructor(props){
+    super(props)
+    this.state = {
+        email: "",
+        password: "",
     }
+}
+handleUpdateState = (name,value)=>{
+  this.setState({
+    [name]: value
+  })
+}
+handleSubmit = ()=>{
+  this.props.LoginAccount(this.state.email,this.state.password)
+    // Reset the input fields after successful registration
+this.setState({
+email: "",
+password: "",
+});
+}
   render() {
-    const { navigation } = this.props
+    const { navigation, auth } = this.props
     return (
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View>
         <Text style={styles.loginHead}>Login</Text>
         </View>
         <View style={styles.loginTextContainer}>
-        <TextInput style={styles.input} placeholder="username" placeholderTextColor={"#aaaaaa"}  
+        {auth.error.login && 
+        <Text style={{color: "red"}}>{auth.error.login}</Text>
+          }
+        <TextInput style={styles.input} placeholder="Email" placeholderTextColor={"#aaaaaa"}  
              autoCapitalize={false}
               autoCorrect={false}
-              value={this.state.username}
-              onChangeText={(username)=> {
-                console.log(username)
-                this.setState({username : username})}}/>
+              value={this.state.email}
+              onChangeText={(text)=>{this.handleUpdateState("email", text)}} />
 
-        <TextInput style={styles.input} placeholder="password" placeholderTextColor={"#aaaaaa"} 
+        <TextInput style={styles.input} placeholder="Password" placeholderTextColor={"#aaaaaa"} 
         secureTextEntry={true} 
         autoCapitalize="none"
               autoCorrect={false}
               value={this.state.password}
-              onChangeText={(password)=> {
-                console.log(password)
-                this.setState({password:password})
-              }}/>
+              onChangeText={(text)=>{this.handleUpdateState("password", text)}}/>
         <Text style={styles.forgotPassword}> Forgot Password</Text>
         </View>
         <View>
         
       </View>
-      <TouchableOpacity style={styles.bottonContainer}>
+      <TouchableOpacity onPress={this.handleSubmit} style={styles.bottonContainer}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
@@ -112,3 +126,23 @@ signupText:{
     color: "#5100ad"
 }
 })
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     dispatchUser: (user) => dispatch(dispatchUser(user))
+//   };
+// };
+
+//const mapStateToProps = (state) => {
+  //return {
+    // Specify the props you want to map from the state
+    // email: state.email,
+    // password: state.password,
+    // ...other props
+  //};
+//};
+
+const mapStateToProps = (state) => {
+  return { auth:state}
+};
+export default connect(mapStateToProps, {LoginAccount})(Login);

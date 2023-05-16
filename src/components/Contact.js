@@ -1,14 +1,13 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from "react-native";
-import Profile  from "../assets/profile.jpg";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';  
 
-export default function Contact({name,phone}) {
+export default function Contact({name,phone,image}) {
   return (
     <View style={styles.container}>
-        <Image source={Profile} style={styles.image}/>
+        <Image source={image} style={styles.image}/>
         <View style={styles.infoContainer}>
         <Text style={styles.name} numberOfLines={1}>{name}</Text>
         <Text>{phone}</Text>
@@ -46,7 +45,8 @@ infoContainer:{
 },
 name:{
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 10,
+    paddingBottom:5
 },
 icon:{
     flex: 1,
